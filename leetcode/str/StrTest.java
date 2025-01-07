@@ -28,6 +28,10 @@ public class StrTest {
         int[] ret = Solution239.maxSlidingWindow(nums, 5);
         System.out.printf("Solution239:" + Arrays.toString(ret) + "\n");
 
+        String s = "ADOBECODEBANC";
+        String t = "ABC";
+        String s1 = Solution76.minWindow(s, t);
+        System.out.printf("Solution76:" + s1 + "\n");
     }
 
     static class Solution560 {
@@ -57,7 +61,7 @@ public class StrTest {
     static class Solution239 {
         public static int[] maxSlidingWindow(int[] nums, int k) {
             Deque<Integer> dq = new LinkedList<>();
-            int []ans = new int[nums.length-k+1];
+            int[] ans = new int[nums.length - k + 1];
             for (int i = 0; i < k; ++i) {
                 while (!dq.isEmpty() && nums[i] >= nums[dq.peekLast()]) {
                     dq.pollLast();
@@ -72,10 +76,10 @@ public class StrTest {
                 }
                 dq.offerLast(i);
 
-                while(dq.peekFirst()<= i- k){
+                while (dq.peekFirst() <= i - k) {
                     dq.pollFirst();
                 }
-                ans[i-k+1] = nums[dq.peekFirst()];
+                ans[i - k + 1] = nums[dq.peekFirst()];
             }
             return ans;
         }
@@ -104,6 +108,54 @@ public class StrTest {
             ans[i - k + 1] = nums[deque.peekFirst()];
         }
         return ans;
+    }
+
+
+    /**
+     * NO.76
+     * 给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 "" 。
+     */
+    static class Solution76 {
+        public static String minWindow(String s, String t) {
+            int min = -1;
+            int[] sArray = new int[128];
+            int[] tArray = new int[128];
+            int start = 0;
+            int count = 0;
+            while (start < t.length()) {
+                char c = t.charAt(start++);
+                if (++tArray[c - 'A'] == 1) {
+                    count++;
+                }
+            }
+
+            int left = 0;
+            int right = 0;
+            int ansLeft = 0;
+            int ansRight = s.length()-1;
+            while (right < s.length()) {
+                char sc = s.charAt(right);
+                if (++sArray[sc - 'A'] == tArray[sc - 'A']) {
+                    count--;
+                }
+
+                while (count == 0) {
+                    if ((ansRight - ansLeft) > (right - left)) {
+                        min = 1;
+                        ansRight = right;
+                        ansLeft = left;
+                    }
+
+                    char lc = s.charAt(left);
+                    if(sArray[lc-'A'] -- == tArray[sc-'A']){
+                        count++;
+                    }
+                    left++;
+                }
+                right++;
+            }
+            return min==-1?"":s.substring(ansLeft,ansRight+1);
+        }
     }
 }
 
