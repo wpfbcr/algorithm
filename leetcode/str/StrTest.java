@@ -100,7 +100,7 @@ public class StrTest {
             int count = 0;
             while (start < t.length()) {
                 char c = t.charAt(start++);
-                if (++tArray[c - 'a'] == 1) {
+                if (++tArray[c - 'A'] == 1) {
                     count++;
                 }
             }
@@ -111,26 +111,26 @@ public class StrTest {
             int ansRight = s.length()-1;
             while (right < s.length()) {
                 char sc = s.charAt(right);
-                if (++sArray[sc - 'a'] == tArray[sc - 'a']) {
+                if (++sArray[sc - 'A'] == tArray[sc - 'A']) {
                     count--;
                 }
 
                 while (count == 0) {
-                    if (ansRight - ansLeft > right - left) {
+                    if ((ansRight - ansLeft) > (right - left)) {
                         min = 1;
                         ansRight = right;
                         ansLeft = left;
                     }
 
                     char lc = s.charAt(left);
-                    if(sArray[lc-'a'] -- == tArray[sc-'a']){
+                    if(sArray[lc-'A'] -- == tArray[sc-'A']){
                         count++;
                     }
                     left++;
                 }
                 right++;
             }
-            return min==-1?"":s.substring(left,right);
+            return min==-1?"":s.substring(ansLeft,ansRight+1);
         }
     }
 }
