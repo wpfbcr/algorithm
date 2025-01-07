@@ -29,7 +29,7 @@ public class HashTest {
             while (right < nums.length) {
                 hashHappened.add(nums[right++]);
             }
-            for (int num : nums) {
+            for (int num : hashHappened) { //遍历set去重
                 if (!hashHappened.contains(num - 1)) { //点睛之笔，找到最小的数，才能是O(N）的时间复杂度
                    int length = 1;
                    int numBegin = num+1;

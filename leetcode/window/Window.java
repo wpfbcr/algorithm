@@ -11,6 +11,57 @@ public class Window {
 
         List<Integer> anagrams = Solution.findAnagrams(s, p);
         System.out.println(anagrams);
+
+
+        String input = "abcabcbb";
+        int i = Solution5.lengthOfLongestSubstring(input);
+        char c = 'c';
+        System.out.printf("Solution5 answer:"+(i));
+    }
+
+
+    /**
+     * NO.3
+     * 给定一个字符串 s ，请你找出其中不含有重复字符的 最长
+     * 子串
+     * 的长度。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: s = "abcabcbb"
+     * 输出: 3
+     * 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+     */
+
+
+    static class Solution5 {
+        public static int lengthOfLongestSubstring(String s) {
+            int[] t = new int[128];
+            int retMax = 0;
+            int right = 0;
+            int left= 0;
+            while (right < s.length()) {
+                char c = s.charAt(right);
+                if(++t[c-32] >1){
+                    retMax = Math.max(retMax,right-left);
+                    while(left<right){
+                        char d = s.charAt(left);
+                        if(--t[d-32] ==1){
+                            left++;
+                            break;
+                        }else{
+                            left++;
+                        }
+                    }
+                }else{
+                    retMax = Math.max(retMax,right-left);
+                }
+                right++;
+            }
+            return retMax;
+        }
     }
 
 

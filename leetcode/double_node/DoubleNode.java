@@ -8,6 +8,7 @@ public class DoubleNode {
     public static void main(String[] args) {
 
         int[] p = new int[]{0, 1, 0, 3, 12};
+
         Solution283.moveZeroes(p);
         System.out.printf("Solution283 :" + Arrays.toString(p) + "\n");
 
@@ -26,6 +27,7 @@ public class DoubleNode {
         System.out.printf("Solution42 :" + ret + "\n");
 
     }
+
 
     /**
      * NO.283
