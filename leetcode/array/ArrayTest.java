@@ -1,5 +1,9 @@
 package array;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 public class ArrayTest {
 
 
@@ -39,6 +43,15 @@ public class ArrayTest {
             }
             return max;
         }
+
+        public static int maxSubArray2(int[] nums) {
+            int pre = 0, maxAns = nums[0];
+            for (int x : nums) {
+                pre = Math.max(pre + x, x);
+                maxAns = Math.max(maxAns, pre);
+            }
+            return maxAns;
+        }
     }
 
     /**
@@ -70,6 +83,32 @@ public class ArrayTest {
                 }
             }
             return ret;
+        }
+    }
+
+    /**
+     * NP.41
+     * 给你一个未排序的整数数组 nums ，请你找出其中没有出现的最小的正整数。
+     * <p>
+     * 请你实现时间复杂度为 O(n) 并且只使用常数级别额外空间的解决方案。
+     */
+
+    static class Solution41 {
+        public static int firstMissingPositive(int[] nums) {
+            int l = nums.length;
+            for(int i = 0;i<l;i++){
+                while(nums[i]>0 && nums[i]<=l && nums[nums[i]-1]!=nums[i]){
+                    int tem = nums[nums[i]-1];
+                    nums[nums[i]-1] = nums[i];
+                    nums[i] = tem;
+                }
+            }
+            for(int i = 0;i<l ;i++){
+                if(nums[i]!=i+1){
+                    return i+1;
+                }
+            }
+            return nums.length+1;
         }
     }
 }
