@@ -60,30 +60,29 @@ public class StrTest {
 
     static class Solution239 {
         public static int[] maxSlidingWindow(int[] nums, int k) {
-            Deque<Integer> dq = new LinkedList<>();
-            int[] ans = new int[nums.length - k + 1];
+            int n = nums.length;
+            Deque<Integer> deque = new LinkedList<Integer>();
             for (int i = 0; i < k; ++i) {
-                while (!dq.isEmpty() && nums[i] >= nums[dq.peekLast()]) {
-                    dq.pollLast();
+                while (!deque.isEmpty() && nums[i] >= nums[deque.peekLast()]) {
+                    deque.pollLast();
                 }
-                dq.offerLast(i);
+                deque.offerLast(i);
             }
 
-            ans[0] = dq.peekFirst();
-            for (int i = k; i < nums.length; i++) {
-                while (!dq.isEmpty() && nums[i] >= nums[dq.peekLast()]) {
-                    dq.pollLast();
+            int[] ans = new int[n - k + 1];
+            ans[0] = nums[deque.peekFirst()];
+            for (int i = k; i < n; ++i) {
+                while (!deque.isEmpty() && nums[i] >= nums[deque.peekLast()]) {
+                    deque.pollLast();
                 }
-                dq.offerLast(i);
-
-                while (dq.peekFirst() <= i - k) {
-                    dq.pollFirst();
+                deque.offerLast(i);
+                while (deque.peekFirst() <= i - k) {
+                    deque.pollFirst();
                 }
-                ans[i - k + 1] = nums[dq.peekFirst()];
+                ans[i - k + 1] = nums[deque.peekFirst()];
             }
             return ans;
         }
-
     }
 
 
